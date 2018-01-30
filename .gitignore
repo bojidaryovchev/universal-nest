@@ -13,6 +13,7 @@ node_modules/**
 /dist-server/
 /compiled/
 
+package-lock.json
 # Node #
 npm-debug.log
 /npm-debug.log.*
