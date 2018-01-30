@@ -12,7 +12,7 @@ import { SharedModule } from './modules/shared/shared.module';
     HomeComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'my-app'}),
+    BrowserModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full'},
       { path: 'speakers', loadChildren: './modules/speakers/speakers.module#SpeakersModule'}
