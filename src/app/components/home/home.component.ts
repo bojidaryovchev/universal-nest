@@ -10,14 +10,25 @@ import * as $ from 'jquery';
 @Component({
   selector: 'home',
   template: `
-    <h3>{{ title }}</h3>
-    <img id="ngatl-logo" src="https://uploads-ssl.webflow.com/59f04de85aae0d0001bb95be/59f1a028ffa06300013b4d40_ngATL-logo.svg">
+    <h3>(Third party library) Dragula Example</h3>
+    <div *ngIf="isBrowser" class='wrapper'>
+      <div class='container' [dragula]='"first-bag"'>
+        <div>You can move these elements between these two containers</div>
+        <div>Moving them anywhere else isn't quite possible</div>
+        <div>There's also the possibility of moving elements around in the same container, changing their position</div>
+      </div>
+      <div class='container' [dragula]='"first-bag"'>
+        <div>This is the default use case. You only need to specify the containers you want to use</div>
+        <div>More interactive use cases lie ahead</div>
+        <div>Make sure to check out the <a href='https://github.com/bevacqua/dragula#readme'>documentation on GitHub!</a></div>
+      </div>
+    </div>
   `,
   styles: [`
     #ngatl-logo { width:500px; }
   `]
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
 
   public title: string;
   public isBrowser: boolean = isPlatformBrowser(this.platformId);
@@ -26,38 +37,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(DOCUMENT) private doc,
     private windowService: WindowService
-  ) {
-
-  }
+  ) { }
 
   ngOnInit() {
     this.title = `This is the Homepage!`;
-
-    this.doc.getElementById('ngatl-logo').style.display = 'none';
-
-    console.log('window service');
-    console.log(this.windowService);
-
-    // Now it runs conditionally - so we don't delay our SSR!
-    if (this.isBrowser) {
-      setTimeout(() => {
-        this.title = `We just updated the Title after a setTimeout of 5000 ms !`;
-      }, 5000);
-
-      // Notice this works !
-      window.addEventListener('click', () => { console.log('huh'); }, false);
-
-    }
-
-  }
-
-  ngAfterViewInit() {
-    this.somethingCrazyWithjQuery();
-  }
-
-  private somethingCrazyWithjQuery() {
-    if (this.isBrowser) {
-      // $('body').hide();
-    }
   }
 }

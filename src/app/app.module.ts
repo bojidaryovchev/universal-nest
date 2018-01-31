@@ -8,6 +8,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { WindowService } from './services/window/window.service';
+import { DragulaModule } from 'ng2-dragula';
 
 // For AoT compilation:
 export function getWindow() {
@@ -21,6 +22,7 @@ export function getWindow() {
   ],
   imports: [
     HttpClientModule,
+    DragulaModule,
     // Add .withServerTransition() to support Universal rendering.
     // The application ID can be any identifier which is unique on
     // the page.
