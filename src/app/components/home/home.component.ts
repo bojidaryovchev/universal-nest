@@ -5,6 +5,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { DOCUMENT } from '@angular/platform-browser';
 import { WindowService } from '../../services/window/window.service';
 
+import * as $ from 'jquery';
+
 @Component({
   selector: 'home',
   template: `
@@ -24,7 +26,9 @@ export class HomeComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(DOCUMENT) private doc,
     private windowService: WindowService
-  ) {}
+  ) {
+    this.somethingCrazyWithjQuery();
+  }
 
   ngOnInit() {
     this.title = `This is the Homepage!`;
@@ -45,5 +49,9 @@ export class HomeComponent implements OnInit {
 
     }
 
+  }
+
+  private somethingCrazyWithjQuery() {
+    $('body').hide();
   }
 }
