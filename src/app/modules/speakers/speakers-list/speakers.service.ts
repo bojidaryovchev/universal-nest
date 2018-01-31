@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Speaker } from '../../../interfaces/speakers.interface';
 
 @Injectable()
 export class SpeakersService {
@@ -8,6 +9,6 @@ export class SpeakersService {
   ) {}
 
   getSpeakers() {
-    return this.http.get<any[]>('http://localhost:4000/api/speakers');
+    return this.http.get<Speaker[]>('/api/speakers');
   }
 }

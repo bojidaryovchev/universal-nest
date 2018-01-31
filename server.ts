@@ -8,6 +8,7 @@ import { enableProdMode } from '@angular/core';
 import * as express from 'express';
 import { join } from 'path';
 import { readFileSync } from 'fs';
+import { Speaker } from './src/app/interfaces/speakers.interface';
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -33,7 +34,11 @@ app.engine('html', (_, options, callback) => {
     url: options.req.url,
     // DI so that we can get lazy-loading to work differently (since we need it to just instantly render it)
     extraProviders: [
-      provideModuleMap(LAZY_MODULE_MAP)
+      provideModuleMap(LAZY_MODULE_MAP),
+      {
+        provide: 'serverUrl',
+        useValue: `${options.req.protocol}://${options.req.get('host')}`
+      }
     ]
   }).then(html => {
     callback(null, html);
@@ -44,7 +49,7 @@ app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, 'browser'));
 
 app.get('/api/speakers', (req, res) => {
-  const data = [
+  const data: Speaker[] = [
     { name: 'Name Dudeman', talk: 'Angular for your face', image: 'http://via.placeholder.com/50x50' },
     { name: 'Some Person', talk: 'High-five typescript', image: 'http://via.placeholder.com/50x50' },
     { name: 'Samwise Gamgee', talk: 'Lord of the Angular', image: 'http://via.placeholder.com/50x50' },

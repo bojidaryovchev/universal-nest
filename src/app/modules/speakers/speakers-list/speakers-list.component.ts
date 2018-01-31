@@ -1,19 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { SpeakersService } from './speakers.service';
 import { Observable } from 'rxjs/Observable';
+import { Speaker } from '../../../interfaces/speakers.interface';
 
 @Component({
   selector: 'app-speakers-list',
   template: `
     <h3>Speakers</h3>
-    <!-- get the speakers and display them here -->
-    {{ speakers | async | json }}
+    <ul>
+      <li *ngFor="let speaker of speakers | async">
+        <img [src]="speaker.image"> {{ speaker.name }}<br>
+        {{ speaker.talk }}
+      </li>
+    </ul>
   `,
   styles: []
 })
 export class SpeakersListComponent implements OnInit {
 
-  speakers: Observable<any[]>;
+  speakers: Observable<Speaker[]>;
 
   constructor(
     private speakersService: SpeakersService
