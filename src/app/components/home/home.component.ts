@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'home',
@@ -12,16 +14,22 @@ import { Observable } from 'rxjs/Observable';
   `]
 })
 export class HomeComponent implements OnInit {
-  public title: string;
 
-  constructor() {}
+  public title: string;
+  public isBrowser: boolean = isPlatformBrowser(this.platformId);
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit() {
     this.title = `This is the Homepage!`;
 
-    setTimeout(() => {
-      // ^ why is this bad?
-      this.title = `We just updated the Title after a setTimeout of 5000 ms !`;
-    }, 5000);
+    if (this.isBrowser) {
+      setTimeout(() => {
+        // ^ why is this bad?
+        this.title = `We just updated the Title after a setTimeout of 5000 ms !`;
+      }, 5000);
+    }
   }
 }
