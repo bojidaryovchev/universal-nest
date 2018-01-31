@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {ServerModule} from '@angular/platform-server';
+import {ServerModule, ServerTransferStateModule} from '@angular/platform-server';
 import {ModuleMapLoaderModule} from '@nguniversal/module-map-ngfactory-loader';
 
 import {AppModule} from './app.module';
@@ -13,6 +13,7 @@ import { UniversalInterceptorService } from './modules/shared/interceptors/unive
     // by the ServerModule from @angular/platform-server.
     AppModule,
     ServerModule,
+    ServerTransferStateModule,
     ModuleMapLoaderModule // <-- *Important* to have lazy-loaded routes work
   ],
   // Since the bootstrapped component is not inherited from your

@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { TransferHttpCacheModule } from '@nguniversal/common';
+
 
 @NgModule({
   declarations: [
@@ -13,11 +15,12 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent
   ],
   imports: [
+    HttpClientModule,
     // Add .withServerTransition() to support Universal rendering.
     // The application ID can be any identifier which is unique on
     // the page.
-    HttpClientModule,
     BrowserModule.withServerTransition({appId: 'my-app'}),
+    TransferHttpCacheModule,
 
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full'},
