@@ -7,7 +7,12 @@ import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TransferHttpCacheModule } from '@nguniversal/common';
+import { WindowService } from './services/window/window.service';
 
+// For AoT compilation:
+export function getWindow() {
+  return window;
+}
 
 @NgModule({
   declarations: [
@@ -28,7 +33,12 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
     ]),
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: WindowService,
+      useFactory: getWindow
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

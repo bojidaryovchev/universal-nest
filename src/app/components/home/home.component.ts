@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DOCUMENT } from '@angular/platform-browser';
+import { WindowService } from '../../services/window/window.service';
 
 @Component({
   selector: 'home',
@@ -20,11 +21,18 @@ export class HomeComponent implements OnInit {
   public isBrowser: boolean = isPlatformBrowser(this.platformId);
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(DOCUMENT) private doc,
+    private windowService: WindowService
   ) {}
 
   ngOnInit() {
     this.title = `This is the Homepage!`;
+
+    this.doc.getElementById('ngatl-logo').style.display = 'none';
+
+    console.log('window service');
+    console.log(this.windowService);
 
     // Now it runs conditionally - so we don't delay our SSR!
     if (this.isBrowser) {
@@ -34,10 +42,7 @@ export class HomeComponent implements OnInit {
 
       // Notice this works !
       window.addEventListener('click', () => { console.log('huh'); }, false);
-      // So does this !
-      document.getElementById('ngatl-logo').style.display = 'none';
 
-      // But - should we be doing that?
     }
 
   }
