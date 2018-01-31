@@ -17,6 +17,11 @@ export class HomeComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.title = 'This is the Homepage!';
+    this.title = `This is the Homepage!`;
+
+    setTimeout(() => {
+      // ^ why is this bad?
+      this.title = `We just updated the Title after a setTimeout of 5000 ms !`;
+    }, 5000);
   }
 }
