@@ -25,9 +25,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.title = `This is the Homepage!`;
 
+    // Now it runs conditionally - so we don't delay our SSR!
     if (this.isBrowser) {
       setTimeout(() => {
-        // ^ why is this bad?
         this.title = `We just updated the Title after a setTimeout of 5000 ms !`;
       }, 5000);
     }
