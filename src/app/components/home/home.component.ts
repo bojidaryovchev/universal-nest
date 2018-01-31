@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'home',
@@ -30,6 +31,14 @@ export class HomeComponent implements OnInit {
       setTimeout(() => {
         this.title = `We just updated the Title after a setTimeout of 5000 ms !`;
       }, 5000);
+
+      // Notice this works !
+      window.addEventListener('click', () => { console.log('huh'); }, false);
+      // So does this !
+      document.getElementById('ngatl-logo').style.display = 'none';
+
+      // But - should we be doing that?
     }
+
   }
 }
