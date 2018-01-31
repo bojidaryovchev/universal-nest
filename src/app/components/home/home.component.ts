@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   private somethingCrazyWithjQuery() {
     if (this.isBrowser) {
-      $('body').hide();
+      // $('body').hide();
     }
   }
 }
