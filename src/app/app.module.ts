@@ -12,7 +12,11 @@ import { SharedModule } from './modules/shared/shared.module';
     HomeComponent
   ],
   imports: [
-    BrowserModule,
+    // Add .withServerTransition() to support Universal rendering.
+    // The application ID can be any identifier which is unique on
+    // the page.
+    BrowserModule.withServerTransition({appId: 'my-app'}),
+    
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full'},
       { path: 'speakers', loadChildren: './modules/speakers/speakers.module#SpeakersModule'}
