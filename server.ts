@@ -43,6 +43,15 @@ app.engine('html', (_, options, callback) => {
 app.set('view engine', 'html');
 app.set('views', join(DIST_FOLDER, 'browser'));
 
+app.get('/api/speakers', (req, res) => {
+  const data = [
+    { name: 'Name Dudeman', talk: 'Angular for your face', image: 'http://via.placeholder.com/50x50' },
+    { name: 'Some Person', talk: 'High-five typescript', image: 'http://via.placeholder.com/50x50' },
+    { name: 'Samwise Gamgee', talk: 'Lord of the Angular', image: 'http://via.placeholder.com/50x50' },
+  ];
+  res.send(data);
+});
+
 // Server static files from /browser
 app.get('*.*', express.static(join(DIST_FOLDER, 'browser')));
 
