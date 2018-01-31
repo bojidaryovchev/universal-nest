@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -17,7 +17,7 @@ import * as $ from 'jquery';
     #ngatl-logo { width:500px; }
   `]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
   public title: string;
   public isBrowser: boolean = isPlatformBrowser(this.platformId);
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     @Inject(DOCUMENT) private doc,
     private windowService: WindowService
   ) {
-    this.somethingCrazyWithjQuery();
+
   }
 
   ngOnInit() {
@@ -51,7 +51,13 @@ export class HomeComponent implements OnInit {
 
   }
 
+  ngAfterViewInit() {
+    this.somethingCrazyWithjQuery();
+  }
+
   private somethingCrazyWithjQuery() {
-    $('body').hide();
+    if (this.isBrowser) {
+      $('body').hide();
+    }
   }
 }
