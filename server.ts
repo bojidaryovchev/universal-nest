@@ -54,7 +54,9 @@ app.get('/api/speakers', (req, res) => {
     { name: 'Some Person', talk: 'High-five typescript', image: 'http://via.placeholder.com/50x50' },
     { name: 'Samwise Gamgee', talk: 'Lord of the Angular', image: 'http://via.placeholder.com/50x50' },
   ];
-  res.send(data);
+  setTimeout(() => {
+    res.send(data);
+  }, 5000);
 });
 
 // Server static files from /browser
