@@ -5,28 +5,32 @@ import * as express from 'express';
 import {
   Module,
   Inject,
-  MiddlewaresConsumer,
+  MiddlewareConsumer,
   RequestMethod,
 } from '@nestjs/common';
 import { DynamicModule, NestModule } from '@nestjs/common/interfaces';
 import { readFileSync } from 'fs';
 
-import { applyDomino } from './utils/domino.utils';
+// import { applyDomino } from './utils/domino.utils';
 import { AngularUniversalOptions } from './interfaces/angular-universal-options.interface';
 import { ANGULAR_UNIVERSAL_OPTIONS } from './angular-universal.constants';
 import { AngularUniversalController } from './angular-universal.controller';
 import { angularUniversalProviders } from './angular-universal.providers';
 import { join } from 'path';
+import { HTTP_SERVER_REF } from '@nestjs/core';
 
 @Module({
   controllers: [AngularUniversalController],
-  components: [...angularUniversalProviders],
+  providers: [...angularUniversalProviders],
 })
 export class AngularUniversalModule implements NestModule {
   constructor(
     @Inject(ANGULAR_UNIVERSAL_OPTIONS)
     private readonly ngOptions: AngularUniversalOptions,
-  ) {}
+    @Inject(HTTP_SERVER_REF) private readonly serverRef: express.Application
+  ) {
+    this.serverRef.get('*.*', express.static(this.ngOptions.viewsPath));
+  }
 
   static forRoot(options: AngularUniversalOptions): DynamicModule {
     options = {
@@ -49,9 +53,10 @@ export class AngularUniversalModule implements NestModule {
     };
   }
 
-  configure(consumer: MiddlewaresConsumer): void {
-    consumer
-      .apply(express.static(this.ngOptions.viewsPath))
-      .forRoutes({ path: '*.*', method: RequestMethod.GET });
+  // This approach doesn't work anymore
+  configure(consumer: MiddlewareConsumer): void {
+    // consumer
+    //   .apply(express.static(this.ngOptions.viewsPath))
+    //   .forRoutes('*.*');
   }
 }

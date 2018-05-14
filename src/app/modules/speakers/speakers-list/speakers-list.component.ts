@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SpeakersService } from './speakers.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Speaker } from '../../../interfaces/speakers.interface';
 
 @Component({

@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
+const NodemonWebpackPlugin = require('nodemon-webpack-plugin');
 
 module.exports = {
   entry: {  server: './server/main.ts' },
@@ -12,6 +13,8 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js'
   },
+  mode: 'development',
+  watch: true,
   module: {
     rules: [
       { test: /\.ts$/, loader: 'ts-loader' }
@@ -29,6 +32,7 @@ module.exports = {
       /(.+)?express(\\|\/)(.+)?/,
       path.join(__dirname, 'src'),
       {}
-    )
+    ),
+    new NodemonWebpackPlugin()
   ]
 }
